@@ -1,0 +1,199 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VolSelect: project report</title><style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  :root { --ink:#1b2430; --muted:#5b6675; --rule:#d9dee5; --accent:#1F6F8B; --accent-soft:#e8f1f4; --good:#2e7d4f; --bad:#b4483c; --warn:#9a6b00; }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 9.3pt; line-height: 1.4; margin: 0; background: #fff; }
+  h1 { font-size: 26pt; line-height: 1.1; margin: 0 0 6pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 15pt; margin: 0 0 8pt; padding-bottom: 4pt; border-bottom: 2px solid var(--accent); color: var(--ink); }
+  h3 { font-size: 11pt; margin: 14pt 0 5pt; color: var(--accent); }
+  p { margin: 0 0 7pt; }
+  .section { page-break-before: always; }
+  .lead { font-size: 11pt; color: var(--ink); }
+  .muted { color: var(--muted); }
+  .small { font-size: 8.5pt; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 9pt; font-size: 8pt; page-break-inside: avoid; }
+  th, td { padding: 2.4pt 4.5pt; border-bottom: 1px solid var(--rule); text-align: right; vertical-align: top; }
+  th { background: #f3f5f8; font-weight: 600; color: var(--ink); }
+  th:first-child, td:first-child { text-align: left; }
+  td.l, th.l { text-align: left; }
+  tr.bench td { color: var(--muted); font-style: italic; }
+  tr.hl td { background: var(--accent-soft); }
+  .pos { color: var(--good); font-weight: 600; }
+  .neg { color: var(--bad); font-weight: 600; }
+  .box { border: 1px solid var(--rule); border-left: 4px solid var(--accent); background: #fafbfc; padding: 8pt 10pt; margin: 6pt 0 10pt; page-break-inside: avoid; }
+  .box.good { border-left-color: var(--good); }
+  .box.warn { border-left-color: var(--warn); }
+  .box.bad { border-left-color: var(--bad); }
+  .box h4 { margin: 0 0 4pt; font-size: 10pt; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8pt; }
+  .kpi { border: 1px solid var(--rule); padding: 7pt 8pt; page-break-inside: avoid; }
+  .kpi .v { font-size: 17pt; font-weight: 700; color: var(--accent); line-height: 1.1; }
+  .kpi .k { font-size: 8.3pt; color: var(--muted); margin-top: 2pt; }
+  img.chart { width: 100%; max-height: 82mm; object-fit: contain; border: 1px solid var(--rule); margin: 4pt 0 2pt; page-break-inside: avoid; }
+  .cap { font-size: 8pt; color: var(--muted); margin-bottom: 8pt; }
+  code, pre { font-family: Menlo, Consolas, monospace; font-size: 8.4pt; }
+  pre { background: #0f1720; color: #e6edf3; padding: 6pt 9pt; border-radius: 3pt; margin: 4pt 0 9pt; white-space: pre-wrap; page-break-inside: avoid; }
+  ul { margin: 0 0 7pt 14pt; padding: 0; }
+  li { margin-bottom: 2.5pt; }
+  .cover { height: 255mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover .band { height: 6pt; background: var(--accent); width: 60mm; margin-bottom: 14pt; }
+  .tag { display: inline-block; font-size: 8pt; font-weight: 700; letter-spacing: 0.6pt; text-transform: uppercase; color: var(--accent); margin-bottom: 8pt; }
+  .score td:nth-child(2) { text-align: left; font-weight: 700; }
+  .toc td { border: none; padding: 2pt 0; font-size: 10pt; }
+  .toc td:last-child { color: var(--muted); }
+  svg text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  span.warn { color: var(--warn); font-weight: 600; }
+  h2, h3 { break-after: avoid; page-break-after: avoid; }
+  .box, .grid2, .kpi { break-inside: avoid; }
+</style></head><body>
+
+<div class="cover"><div>
+<div class="band"></div>
+<div class="tag">Design Experience project · Portfolio Management · 23 November 2026</div>
+<h1>VolSelect</h1>
+<p class="lead" style="font-size:12.5pt;max-width:150mm">A volatility-aware NIFTY 50 portfolio: forecast when market volatility will rise, hold the stocks most likely to hold up, and test it honestly on data the model never saw.</p>
+<p class="muted" style="margin-top:14pt">Vansh Dave · Karthik Agarwal &nbsp;|&nbsp; B.Tech AI, 5th semester &nbsp;|&nbsp; Guide: Sailesh Kulkarni</p>
+</div><div>
+<table>
+<tr><th class=l>Brief requirement (Portfolio Management)</th><th class=l>Where in this report</th></tr>
+<tr><td class=l>Stock universe and selection logic</td><td class=l>3. Data; 4.2–4.3</td></tr>
+<tr><td class=l>Weighting method and rebalancing frequency</td><td class=l>4.3 (inverse volatility, weekly)</td></tr>
+<tr><td class=l>Comparison against a benchmark</td><td class=l>4.4; every results table (NIFTY 50 and equal-weight NIFTY 50)</td></tr>
+<tr><td class=l>Annualised return, volatility, Sharpe, max drawdown, beta/alpha</td><td class=l>5.1, 5.2</td></tr>
+<tr><td class=l>Portfolio value chart vs benchmark</td><td class=l>5.3</td></tr>
+<tr><td class=l>Build on one period, test on a later one (out-of-sample)</td><td class=l>4.5; 5.2</td></tr>
+<tr><td class=l>Code and data to reproduce any number</td><td class=l>Appendix A: <code>python verify.py</code></td></tr>
+</table>
+<p class="small muted">Daily data, as the brief specifies for Portfolio Management groups. Academic research prototype; not investment advice.</p>
+</div></div>
+
+<div class="section"><h2>1. Problem statement</h2>
+<p class="lead">When the stock market becomes volatile, most portfolios fall together. Can a model that forecasts rising volatility choose the NIFTY 50 stocks that lose less, without giving up too much return when markets are calm?</p>
+<p>Retail and professional investors in India face this every time India VIX jumps: COVID in 2020, the 2022 sell-off, and smaller shocks since. Holding the index means taking every fall in full; moving to cash means missing rebounds. We test a middle path: stay fully invested, but switch <i>which</i> stocks are held according to a daily forecast of market volatility.</p>
+<h3>Research questions</h3>
+<ol>
+<li>Can India VIX, realised volatility and a GARCH model forecast high-volatility periods for NIFTY better than a naive rule?</li>
+<li>In high-volatility periods, which stock characteristics (beta, sector, trend, momentum and others) go with beating the index?</li>
+<li>Does a portfolio that switches between a momentum ranking (calm markets) and a resilience ranking (rising or high volatility) beat NIFTY 50 and equal-weight NIFTY 50 after costs, on data it was not built on?</li>
+</ol>
+<h3>What counts as success</h3>
+<p>Higher return per unit of risk than the benchmarks (Sharpe), smaller losses in stress periods, and, most importantly, that both hold on the 2022–2026 out-of-sample period, after 0.15% trading cost per side.</p>
+</div>
+
+<div class="section"><h2>2. Background and literature</h2>
+<p><b>Volatility clusters and can be forecast.</b> Engle (1982) and Bollerslev (1986) showed that large price moves tend to follow large moves; the GARCH(1,1) model captures this and remains a standard one-day-ahead volatility forecast. India VIX, built from NIFTY option prices, measures the market's own expectation of volatility over the next 30 days; Whaley (2000) described the US equivalent as the "investor fear gauge". We combine both with realised volatility.</p>
+<p><b>Which stocks hold up.</b> Low-beta and low-volatility stocks have historically delivered better risk-adjusted returns than theory predicts (Ang et al., 2006; Frazzini and Pedersen, 2014), which suggests holding them when risk rises. Momentum, the tendency of recent winners to keep winning over 3–12 months (Jegadeesh and Titman, 1993), works in calm markets but is known to crash when markets turn sharply. That trade-off is the reason for a regime switch.</p>
+<p><b>The benchmark to beat.</b> DeMiguel, Garlappi and Uppal (2009) found that a simple equal-weight (1/N) portfolio is very hard to beat out of sample; optimised portfolios lose their edge to estimation error. We therefore report equal-weight NIFTY 50 alongside the NIFTY 50 index.</p>
+<p><b>Testing honestly.</b> The more settings a researcher tries, the more likely the best backtest is luck (Bailey et al., 2017). We use a walk-forward design (models refitted each year on past data only), keep a hold-out period from 2022, fix design choices in advance, and add automatic checks that flag any indicator or setting that worked before 2022 and failed after. Performance is measured with the Sharpe ratio (Sharpe, 1966), and beta and alpha from the capital asset pricing model (Jensen's alpha).</p>
+</div>
+
+<div class="section"><h2>3. Data</h2>
+<table><tr><th class=l>Item</th><th class=l>Detail</th></tr><tr><td class=l>Source</td><td class=l>Yahoo Finance via the <code>yfinance</code> library; daily OHLCV, adjusted for splits and dividends. Bundled with the project as CSV and fingerprinted (SHA-256 manifest).</td></tr><tr><td class=l>Instruments</td><td class=l>The 50 stocks in NSE's current NIFTY 50 list (<code>data/ind_nifty50list.csv</code>, with sectors), the NIFTY 50 index (^NSEI) and India VIX (^INDIAVIX)</td></tr><tr><td class=l>Period</td><td class=l>Prices from January 2012 (to build features and train the first models); portfolio test 04 Jan 2016 to 23 Oct 2026</td></tr><tr><td class=l>Frequency</td><td class=l>Daily candles (open, high, low, close, volume), as required for Portfolio Management groups</td></tr><tr><td class=l>Split</td><td class=l>Development (build) period 2016–2021; out-of-sample (test) period 1 Jan 2022 to the end of the data</td></tr><tr><td class=l>Cleaning</td><td class=l>Yahoo writes placeholder bars (open = high = low = close, no volume) for days a stock did not trade, including some market holidays; these are dropped. A stock's missing day is treated as a no-trade day (price carried). Stocks that listed after 2012 join on their first trading day.</td></tr><tr><td class=l>Live data</td><td class=l>The same source is fetched every trading day after the close for the forward paper-trading record, kept in <code>live/</code> and never mixed with the research data.</td></tr></table>
+<p><b>Known biases.</b> The list is today's NIFTY 50, so stocks that left the index are missing (survivorship bias), which flatters every approach that holds these stocks, the equal-weight benchmark included. Stock prices include dividends but the NIFTY 50 index (^NSEI) does not, so comparisons with NIFTY favour the stocks by roughly 1.2–1.5% a year; equal-weight NIFTY 50 is built from the same adjusted prices and is the like-for-like benchmark.</p>
+</div>
+
+<div class="section"><h2>4. Methodology</h2>
+<h3>4.1 Volatility regime forecast</h3>
+<p>Each day, after the close, a logistic regression estimates the probability that NIFTY's realised volatility over the next 10 sessions will be "high", defined as above the 75th percentile of 10-day volatility over the previous year (a threshold known at the time). Inputs: India VIX level and 5-day change, 10- and 20-day realised volatility, the VIX-to-realised ratio, and a GARCH(1,1) forecast whose parameters are fitted only on data before the forecast year. The probability sets the regime: <b>calm</b> below 30%, <b>rising</b> 30–50%, <b>high</b> above 50% (cut-offs fixed before testing).</p>
+<h3>4.2 Stock universe and selection logic</h3>
+<p>All 50 NIFTY 50 stocks are scored daily on 19 measures: beta and downside beta to NIFTY, past excess return in high-volatility periods, defensive sector, relative strength, liquidity, RSI, MACD, ADX, Bollinger %B, ATR, on-balance volume trend, stochastic, distance from the 50- and 200-day averages, 20/60/120-day momentum and 20-day volatility. Each measure is converted to a rank across stocks (0 to 1), so different scales do not matter. Two logistic regressions estimate each stock's chance of beating NIFTY over the next 10 sessions: one trained on calm days, one on high-volatility days (the <b>resilience model</b>).</p>
+<p><b>Selection rule (regime switch):</b> in a calm regime, hold the 10 stocks with the highest 120-day momentum; in a rising or high regime, hold the 10 stocks with the highest resilience-model score.</p>
+<h3>4.3 Weighting, rebalancing and costs</h3>
+<table><tr><th class=l>Choice</th><th class=l>Value</th><th class=l>Why</th></tr><tr><td class=l>Number of stocks</td><td class=l>10</td><td class=l>Enough diversification across sectors, still selective</td></tr><tr><td class=l>Weighting</td><td class=l>Inverse volatility (weight ∝ 1 / 20-day volatility)</td><td class=l>A simple risk-parity-style rule: calmer stocks get more capital, no optimiser to overfit</td></tr><tr><td class=l>Rebalancing</td><td class=l>Weekly, at the open of the first session of each week</td><td class=l>Responds to regime changes within days</td></tr><tr><td class=l>Timing</td><td class=l>Signals at the close of day t−1, trades at the open of day t</td><td class=l>No look-ahead: tested by changing future prices and checking past results do not move</td></tr><tr><td class=l>Costs</td><td class=l>0.15% of every rupee traded, each side</td><td class=l>STT on delivery (0.1%), exchange and regulatory charges, slippage; also tested at 0%, 0.05% and 0.30%</td></tr><tr><td class=l>Cash</td><td class=l>Fully invested, never moves to cash</td><td class=l>Avoids missing rebounds</td></tr></table>
+<h3>4.4 Benchmarks and comparison approaches</h3>
+<p>NIFTY 50 buy and hold, and equal-weight NIFTY 50 (all stocks, equal weights, rebalanced weekly at the same cost). To see what each part contributes, we also run momentum only, resilience model only, low volatility only, a gradient-boosting version of the regime switch, and variants with a drawdown trigger (on an 8, 10 or 12% fall the model retrains on recent data and may switch approach; the level was chosen on 2016–2021 only).</p>
+<h3>4.5 Out-of-sample design</h3>
+<p><b>Walk-forward:</b> every 1 January, the regime model, GARCH parameters and stock models are refitted on data up to the previous 31 December, then used unchanged for that year. Models train only on rows whose 10-day outcome is complete before the cut-off. <b>Development and test:</b> all design choices (10 stocks, weekly rebalance, regime cut-offs, horizons, cost) were fixed while working on 2016–2021; 2022 onward is reported separately as the out-of-sample test.</p>
+<h3>4.6 Metrics</h3>
+<p>Annual return (CAGR); annualised volatility of daily returns; Sharpe ratio = annualised mean excess return over a 6.5% risk-free rate ÷ annualised volatility; maximum drawdown = largest fall from a previous peak; beta = covariance of daily excess returns with NIFTY ÷ variance of NIFTY's; alpha (Jensen's) = annualised mean excess return − beta × NIFTY's mean excess return; turnover = rupees traded per year ÷ portfolio value.</p>
+</div>
+
+<div class="section"><h2>5. Backtest results</h2>
+<h3>5.1 Full walk-forward, 2016–2026</h3>
+<table><tr><th class=l>Approach</th><th>Annual return %</th><th>Volatility %</th><th>Sharpe</th><th>Max drawdown %</th><th>Beta</th><th>Alpha % a year</th><th>Turnover ×/yr</th></tr><tr class="hl"><td class=l>VolSelect regime switch (main)</td><td>16.98</td><td>18.74</td><td>0.60</td><td>−33.59</td><td>0.92</td><td>+6.82</td><td>35.3</td></tr><tr><td class=l>Resilience model only</td><td>15.49</td><td>15.57</td><td>0.61</td><td>−33.86</td><td>0.75</td><td>+5.76</td><td>33.5</td></tr><tr><td class=l>Momentum only</td><td>19.40</td><td>18.99</td><td>0.71</td><td>−36.50</td><td>0.92</td><td>+8.95</td><td>22.4</td></tr><tr><td class=l>Low volatility only</td><td>12.00</td><td>14.74</td><td>0.42</td><td>−37.40</td><td>0.78</td><td>+2.36</td><td>32.4</td></tr><tr class="bench"><td class=l>Equal-weight NIFTY 50</td><td>20.32</td><td>16.50</td><td>0.84</td><td>−38.40</td><td>0.97</td><td>+9.05</td><td>1.4</td></tr><tr class="bench"><td class=l>NIFTY 50 buy and hold</td><td>10.36</td><td>16.14</td><td>0.30</td><td>−38.44</td><td>1.00</td><td>−0.00</td><td>–</td></tr></table>
+<p class="small muted">Source: <code>results/table_full.csv</code>. All after 0.15% cost per side.</p>
+<p><b>How to read this.</b> The VolSelect regime switch grew 17.0% a year against 10.4% for NIFTY 50, with a beta of 0.92 and a Sharpe ratio of 0.60 against 0.30. But simply holding all 50 stocks equally earned 20.3% with a higher Sharpe (0.84), so stock selection did not add value over the like-for-like benchmark. The positive alphas against NIFTY are inflated by about 1.2–1.5 points a year because the stocks include dividends and the index does not; equal weight's own alpha of 9.0% shows the size of that bias plus survivorship. The resilience model alone has the lowest beta (0.75) and lower volatility than the index (15.6% against 16.1%): it does hold defensive stocks, as designed.</p>
+
+<h3>5.2 Built on 2016–2021, tested on 2022 onward</h3>
+<table><tr><th class=l>Approach</th><th>Development: return %</th><th>Sharpe</th><th>Max DD %</th><th>Test 2022+: return %</th><th>Volatility %</th><th>Sharpe</th><th>Max DD %</th><th>Beta</th><th>Alpha %</th></tr><tr class="hl"><td class=l>VolSelect regime switch (main)</td><td>24.29</td><td>0.88</td><td>−33.59</td><td>8.36</td><td>16.54</td><td>0.19</td><td>−30.43</td><td>0.92</td><td>+3.31</td></tr><tr><td class=l>Resilience model only</td><td>22.60</td><td>0.91</td><td>−33.86</td><td>7.18</td><td>12.90</td><td>0.11</td><td>−21.74</td><td>0.70</td><td>+1.60</td></tr><tr><td class=l>Momentum only</td><td>28.19</td><td>1.03</td><td>−36.50</td><td>9.18</td><td>17.03</td><td>0.23</td><td>−27.04</td><td>0.95</td><td>+4.17</td></tr><tr><td class=l>Low volatility only</td><td>17.74</td><td>0.72</td><td>−37.40</td><td>5.11</td><td>12.98</td><td>−0.04</td><td>−21.67</td><td>0.81</td><td>−0.35</td></tr><tr class="bench"><td class=l>Equal-weight NIFTY 50</td><td>24.43</td><td>0.97</td><td>−38.40</td><td>15.13</td><td>14.32</td><td>0.62</td><td>−16.30</td><td>0.98</td><td>+9.18</td></tr><tr class="bench"><td class=l>NIFTY 50 buy and hold</td><td>14.30</td><td>0.49</td><td>−38.44</td><td>5.31</td><td>13.76</td><td>−0.02</td><td>−16.47</td><td>1.00</td><td>+0.00</td></tr></table>
+<p class="small muted">Sources: <code>results/table_development.csv</code>, <code>results/table_hold-out.csv</code>.</p>
+<p><b>How to read this.</b> This is the honest test. In the development years the regime switch earned 24.3% a year; on the unseen 2022+ data it earned 8.4%, still ahead of NIFTY (5.3%) but far behind equal weight (15.1%), and with a deeper worst fall than NIFTY (−30.4% against −16.5%). The resilience model kept its low beta out of sample (0.70) and the lowest volatility of the stock portfolios (12.9%). The drop from development to test is the pattern the literature warns about, and the reason we report both.</p>
+</div>
+
+<div class="section"><h3 style="margin-top:0">5.3 Portfolio value against the benchmarks</h3>
+<img class="chart" src="../results/chart_1_equity.png" alt="Portfolio value against NIFTY 50 and equal-weight NIFTY 50">
+<div class="cap">Growth of Rs 10 lakh, log scale; dotted line: start of the out-of-sample test. <code>results/chart_1_equity.png</code></div>
+<p><b>How to read this.</b> A log scale shows equal percentage changes as equal heights. VolSelect (blue) and equal weight (gold) both pull far ahead of NIFTY (grey) from 2020, helped by dividends and survivorship as explained in section 3. VolSelect stays within about 12% of equal weight through 2024 (it was ahead in 2018, 2020 and 2024), then falls behind: in 2025 it returned −6.1% while equal weight returned 14.0%, and by the end of the data it is worth 26% less than equal weight.</p>
+<h3>5.4 Falls from the previous peak</h3>
+<img class="chart" src="../results/chart_2_drawdown.png" alt="Drawdown chart">
+<div class="cap">Drawdown: how far each portfolio is below its previous high. <code>results/chart_2_drawdown.png</code></div>
+<p><b>How to read this.</b> All three fell sharply in March 2020, but VolSelect's fall was shallower (−33.6% from its peak against −38.4% for NIFTY and −38.4% for equal weight). Since 2024 the picture reverses: VolSelect has fallen −30.4% from its peak and had not recovered by the end of the data, against at most −16.3% for equal weight and −15.8% for NIFTY. Most of its out-of-sample shortfall comes from this period.</p>
+<h3>5.5 Stress periods</h3>
+<img class="chart" src="../results/chart_5_crisis.png" alt="Returns in the COVID crash and the 2022 sell-off" style="width:72%">
+<table><tr><th class=l>Approach</th><th>COVID crash, 14 Feb–30 Apr 2020 %</th><th>2022 sell-off, Jan–Jun %</th></tr><tr class="hl"><td class=l>VolSelect regime switch (main)</td><td>−11.5</td><td>−7.1</td></tr><tr><td class=l>Resilience model only</td><td>−10.1</td><td>−4.0</td></tr><tr><td class=l>Momentum only</td><td>−15.6</td><td>−13.0</td></tr><tr><td class=l>Low volatility only</td><td>−12.6</td><td>−13.6</td></tr><tr class="bench"><td class=l>Equal-weight NIFTY 50</td><td>−19.4</td><td>−8.1</td></tr><tr class="bench"><td class=l>NIFTY 50 buy and hold</td><td>−18.6</td><td>−10.5</td></tr></table>
+<p><b>How to read this.</b> This is where the idea works. In both sell-offs the regime switch and the resilience model lost less than NIFTY and less than equal weight: in the COVID crash −11.5% against −18.6% for NIFTY, and in the first half of 2022 the resilience model lost only −4.0% against −10.5%. Selection by resilience protects capital in stress; the cost shows up in calm, rising markets.</p>
+</div>
+
+<div class="section"><h3 style="margin-top:0">5.6 Win/loss</h3>
+<table><tr><th class=l>Approach</th><th>Weeks up %</th><th>Weeks beating NIFTY %</th><th>Months up %</th><th>Months beating NIFTY %</th><th>Months beating equal wt %</th><th>Avg up week %</th><th>Avg down week %</th><th>Picks beating NIFTY %</th></tr><tr class="hl"><td class=l>VolSelect regime switch (main)</td><td>56.5</td><td>51.7</td><td>65.1</td><td>54.3</td><td>48.1</td><td>1.95</td><td>−1.77</td><td>50.0</td></tr><tr><td class=l>Resilience model only</td><td>56.5</td><td>50.8</td><td>63.6</td><td>51.9</td><td>36.4</td><td>1.63</td><td>−1.43</td><td>49.8</td></tr><tr><td class=l>Momentum only</td><td>56.7</td><td>54.2</td><td>65.9</td><td>56.6</td><td>49.6</td><td>2.00</td><td>−1.76</td><td>50.6</td></tr><tr><td class=l>Low volatility only</td><td>56.8</td><td>51.3</td><td>59.7</td><td>52.7</td><td>41.1</td><td>1.50</td><td>−1.42</td><td>49.9</td></tr><tr class="bench"><td class=l>Equal-weight NIFTY 50</td><td>59.0</td><td>62.2</td><td>66.7</td><td>71.3</td><td>–</td><td>1.75</td><td>−1.59</td><td>–</td></tr><tr class="bench"><td class=l>NIFTY 50 buy and hold</td><td>57.2</td><td>–</td><td>56.6</td><td>–</td><td>28.7</td><td>1.55</td><td>−1.57</td><td>–</td></tr></table>
+<p class="small muted">Source: <code>results/win_loss.csv</code>. A pick is one stock held from one rebalance to the next; it wins if it beat NIFTY.</p>
+<p><b>How to read this.</b> VolSelect rose in 56% of weeks and beat NIFTY in 54% of months, but individual picks beat NIFTY only about half the time (50.0%). The model is not a stock-picker in normal markets; its value is in how much less it loses when volatility rises.</p>
+<h3>5.7 Trading costs</h3>
+<table><tr><th class=l>Approach</th><th class=l>Cost per side</th><th>Return 2016–26 %</th><th>Return 2016–21 %</th><th>Return 2022+ %</th></tr><tr><td class=l>VolSelect regime switch</td><td class=l>none (gross)</td><td>23.40</td><td>30.90</td><td>14.54</td></tr><tr><td class=l></td><td class=l>0.05%</td><td>21.22</td><td>28.66</td><td>12.44</td></tr><tr><td class=l></td><td class=l>0.15%</td><td>16.98</td><td>24.29</td><td>8.36</td></tr><tr><td class=l></td><td class=l>0.30%</td><td>10.92</td><td>18.04</td><td>2.53</td></tr><tr><td class=l>Equal-weight NIFTY 50</td><td class=l>none (gross)</td><td>20.64</td><td>24.81</td><td>15.39</td></tr><tr><td class=l></td><td class=l>0.05%</td><td>20.53</td><td>24.68</td><td>15.31</td></tr><tr><td class=l></td><td class=l>0.15%</td><td>20.32</td><td>24.43</td><td>15.13</td></tr><tr><td class=l></td><td class=l>0.30%</td><td>20.00</td><td>24.06</td><td>14.88</td></tr></table>
+<p><b>How to read this.</b> Before any cost VolSelect beat equal weight in the development years (30.9% against 24.8%) but trailed it from 2022 even with no cost (14.5% against 15.4%). Weekly rebalancing turns the portfolio over about 35 times a year, so at 0.15% per side costs take roughly 6.4 points a year; the break-even cost over the full period is about 0.07% per side, below the 0.1% STT alone.</p>
+<h3>5.8 Capacity</h3>
+<p>Over the last year the median NIFTY 50 stock traded Rs 407 crore a day and the least liquid Rs 170 crore; a 10% position stays below 5% of a day's traded value up to about Rs 85 crore of capital (<code>results/capacity.csv</code>).</p>
+</div>
+
+<div class="section"><h3 style="margin-top:0">5.9 Volatility forecast</h3>
+<img class="chart" src="../results/chart_3_regime.png" alt="Forecast probability of high volatility against actual volatility">
+<table><tr><th class=l>Period</th><th>Days</th><th>Share actually high</th><th>Hit rate</th><th>Naive hit rate</th><th>Precision</th><th>Recall</th><th>Naive recall</th></tr><tr><td class=l>Development 2016–2021</td><td>1,476</td><td>23%</td><td>76.2%</td><td>78.3%</td><td>47.1%</td><td>19.2%</td><td>52.5%</td></tr><tr><td class=l>Hold-out 2022–2026</td><td>1,177</td><td>29%</td><td>72.9%</td><td>67.5%</td><td>72.5%</td><td>10.8%</td><td>42.4%</td></tr></table>
+<p><b>How to read this.</b> The shaded area is the forecast probability; the black line is the volatility that actually followed. On the 2022+ test the forecast was right on 73% of days against 68% for a naive "next 10 days like the last 10" rule, and when it said "high" it was right 73% of the time. But it caught only 11% of the high-volatility days (recall), against 42% for the naive rule: it is cautious, and misses most spikes. This is the weakest link of the system.</p>
+<h3>5.10 Which stock characteristics mattered</h3>
+<img class="chart" src="../results/chart_4_importance.png" alt="Average model coefficients by regime" style="width:78%">
+<table><tr><th class=l>Indicator</th><th>Information coefficient 2013–2021</th><th>2022+</th><th class=l>Verdict</th></tr><tr><td class=l>beta</td><td>−0.060</td><td>+0.005</td><td class=l>failed after 2022</td></tr><tr><td class=l>down beta</td><td>−0.043</td><td>+0.010</td><td class=l>failed after 2022</td></tr><tr><td class=l>defensive</td><td>+0.054</td><td>+0.028</td><td class=l>held</td></tr><tr><td class=l>liquidity</td><td>−0.041</td><td>−0.029</td><td class=l>held</td></tr><tr><td class=l>rsi</td><td>−0.034</td><td>−0.028</td><td class=l>held</td></tr><tr><td class=l>pct b</td><td>−0.045</td><td>−0.029</td><td class=l>held</td></tr><tr><td class=l>stoch</td><td>−0.040</td><td>−0.044</td><td class=l>held</td></tr><tr><td class=l>mom 120</td><td>−0.015</td><td>−0.015</td><td class=l>held</td></tr></table>
+<p><b>How to read this.</b> The bars are the resilience model's average coefficients: positive means the characteristic helped a stock beat NIFTY in high-volatility periods. Being in a defensive sector helped and recent big winners (120-day momentum) were hurt. The table checks each indicator's information coefficient (rank correlation with the next 10-day excess return on high-volatility days) before and after 2022: defensive sector and not being overbought (low RSI, %B, stochastic) held up out of sample; the low-beta effect did not.</p>
+<h3>5.11 Overfitting checks</h3>
+<p>The gradient-boosting version scored an average in-sample AUC of 0.78 but only 0.52 on the following year (0.5 = guessing): it overfits. The logistic regression scored 0.51 on the following year, so neither model predicts which individual stock will beat NIFTY, consistent with picks winning only about half the time (5.6). We kept the logistic regression because it is simpler and its coefficients can be explained; the portfolio's value in stress comes from its defensive, low-beta tilt rather than from picking winners (<code>results/overfitting_auc.csv</code>). The drawdown trigger level chosen on 2016–2021 was not the best afterwards; we report it but do not use it as the main approach.</p>
+<h3>5.12 Live forward record</h3>
+<p>Since the close of 23 Nov 2026 the same pipeline runs every trading day at 18:00 IST on fresh prices: VolSelect and equal-weight NIFTY 50, Rs 10 lakh each, appended to an append-only ledger (<code>live/ledger.csv</code>) and committed to git, so every day is timestamped. It starts at that day's close; the first trades fill the next morning. It is shown live in the project's dashboard (<code>streamlit run volselect_app.py</code>).</p>
+</div>
+
+<div class="section"><h2>6. Limitations</h2>
+<table><tr><th class=l>Limitation</th><th class=l>Effect on the results</th></tr><tr><td class=l>Survivorship bias</td><td class=l>Today's NIFTY 50 list is used for every year, so failed or demoted stocks are missing; this inflates every stock portfolio, the equal-weight benchmark included.</td></tr><tr><td class=l>Dividends</td><td class=l>Stocks are total return, NIFTY 50 (^NSEI) is price only: returns and alpha against NIFTY are overstated by about 1.2–1.5% a year.</td></tr><tr><td class=l>Short test period</td><td class=l>2022 onward is under five years and largely one market regime.</td></tr><tr><td class=l>Forecast recall</td><td class=l>The volatility forecast misses most high-volatility spells (recall 11% out of sample).</td></tr><tr><td class=l>Turnover and costs</td><td class=l>About 35× a year; the edge before costs did not survive out of sample.</td></tr><tr><td class=l>Daily data</td><td class=l>Trades are assumed at the next open; intraday moves and opening-auction slippage are not modelled beyond the cost assumption.</td></tr><tr><td class=l>Data source</td><td class=l>Yahoo Finance is unofficial; adjusted prices are revised over time (the bundled data is fingerprinted).</td></tr><tr><td class=l>Scope</td><td class=l>Long only, cash segment; no shorting, futures or options hedges.</td></tr></table>
+</div>
+
+<div><h2>7. Conclusion</h2>
+<p>We built and tested a fully walk-forward, volatility-aware NIFTY 50 portfolio. Three findings hold up:</p>
+<ol>
+<li><b>Selection by resilience protects in sell-offs.</b> In the COVID crash and the 2022 sell-off the regime switch and the resilience model lost clearly less than NIFTY and equal weight, and the resilience model kept a low beta (0.70) out of sample.</li>
+<li><b>It does not beat equal weight.</b> Over 2016–2026 and on the 2022+ test, holding all 50 stocks equally earned more with a higher Sharpe ratio; from 2022 the selection trailed equal weight even before costs. Consistent with DeMiguel et al. (2009), 1/N is hard to beat.</li>
+<li><b>The volatility forecast is the weak link.</b> It is accurate when it signals high volatility but misses most spikes, so the portfolio is often in the wrong regime early in a sell-off.</li>
+</ol>
+<p><b>Next steps:</b> point-in-time index membership to remove survivorship bias; a total-return NIFTY benchmark; lower turnover (monthly rebalance or a buffer before replacing a stock); a forecast tuned for recall; and a longer live record. Every result in this report can be reproduced with one command (Appendix A), and the live record lets anyone check the method going forward.</p>
+</div>
+
+<div class="section"><h2>8. References</h2>
+<ol class="small">
+<li>Ang, A., Hodrick, R. J., Xing, Y. and Zhang, X. (2006). The cross-section of volatility and expected returns. <i>Journal of Finance</i>, 61(1), 259–299.</li>
+<li>Bailey, D. H., Borwein, J. M., López de Prado, M. and Zhu, Q. J. (2017). The probability of backtest overfitting. <i>Journal of Computational Finance</i>, 20(4), 39–69.</li>
+<li>Bollerslev, T. (1986). Generalized autoregressive conditional heteroskedasticity. <i>Journal of Econometrics</i>, 31(3), 307–327.</li>
+<li>DeMiguel, V., Garlappi, L. and Uppal, R. (2009). Optimal versus naive diversification: how inefficient is the 1/N portfolio strategy? <i>Review of Financial Studies</i>, 22(5), 1915–1953.</li>
+<li>Engle, R. F. (1982). Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation. <i>Econometrica</i>, 50(4), 987–1007.</li>
+<li>Frazzini, A. and Pedersen, L. H. (2014). Betting against beta. <i>Journal of Financial Economics</i>, 111(1), 1–25.</li>
+<li>Jegadeesh, N. and Titman, S. (1993). Returns to buying winners and selling losers: implications for stock market efficiency. <i>Journal of Finance</i>, 48(1), 65–91.</li>
+<li>Sharpe, W. F. (1966). Mutual fund performance. <i>Journal of Business</i>, 39(1), 119–138.</li>
+<li>Whaley, R. E. (2000). The investor fear gauge. <i>Journal of Portfolio Management</i>, 26(3), 12–17.</li>
+<li>National Stock Exchange of India. NIFTY 50 index constituents and India VIX methodology. nseindia.com.</li>
+<li>Software: pandas, NumPy, scikit-learn, arch (GARCH), Matplotlib, Streamlit, yfinance.</li>
+</ol>
+
+<h2 style="margin-top:18pt">Appendix A. Reproducing every number</h2>
+<pre>pip install -r requirements.txt
+python verify.py</pre>
+<p><code>verify.py</code> checks the bundled data against its SHA-256 manifest, runs the 16 unit tests (including tests that change future prices and confirm past results do not move), re-runs the whole study into a temporary folder and compares all 18 result files with <code>results/</code> number by number. Expected verdict: <b>ALL RESULTS REPRODUCED</b> (about one minute, offline). Do not run <code>--download</code> first: Yahoo revises adjusted prices, so fresh data shifts the numbers slightly. <code>VIVA_GUIDE.md</code> maps every number in this report and the slides to the file it comes from.</p>
+<h2>Appendix B. Corrections to our October results</h2>
+<p>Re-checking for this submission found and fixed: a bug in the indicator check (the after-2022 column was never computed, wrongly flagging five indicators); Yahoo placeholder bars that left stocks unscored for weeks in 2025 and early 2026; a one-day misalignment in a "high-volatility days" table (that October claim is withdrawn); a Sortino formula; and a rebalance that could re-spend a stock with no opening price. All are covered by tests or by <code>verify.py</code>; affected October numbers are superseded by this report.</p>
+</div>
+</body></html>
