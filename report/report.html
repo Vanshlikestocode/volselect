@@ -54,6 +54,7 @@
 <h1>VolSelect</h1>
 <p class="lead" style="font-size:12.5pt;max-width:150mm">A volatility-aware NIFTY 50 portfolio: forecast when market volatility will rise, hold the stocks most likely to hold up, and test it honestly on data the model never saw.</p>
 <p class="muted" style="margin-top:14pt">Vansh Dave · Karthik Agarwal &nbsp;|&nbsp; B.Tech AI, 5th semester &nbsp;|&nbsp; Guide: Sailesh Kulkarni</p>
+<p style="margin-top:10pt;font-size:12pt"><b>Live site:</b> <a href="https://volselect.streamlit.app">https://volselect.streamlit.app</a> &nbsp;(click to open)</p>
 </div><div>
 <table>
 <tr><th class=l>Brief requirement (Portfolio Management)</th><th class=l>Where in this report</th></tr>
@@ -157,7 +158,7 @@
 <h3>5.11 Overfitting checks</h3>
 <p>The gradient-boosting version scored an average in-sample AUC of 0.78 but only 0.52 on the following year (0.5 = guessing): it overfits. The logistic regression scored 0.51 on the following year, so neither model predicts which individual stock will beat NIFTY, consistent with picks winning only about half the time (5.6). We kept the logistic regression because it is simpler and its coefficients can be explained; the portfolio's value in stress comes from its defensive, low-beta tilt rather than from picking winners (<code>results/overfitting_auc.csv</code>). The drawdown trigger level chosen on 2016–2021 was not the best afterwards; we report it but do not use it as the main approach.</p>
 <h3>5.12 Live forward record</h3>
-<p>Since the close of 23 Nov 2026 the same pipeline runs every trading day at 18:00 IST on fresh prices: VolSelect and equal-weight NIFTY 50, Rs 10 lakh each, appended to an append-only ledger (<code>live/ledger.csv</code>) and committed to git, so every day is timestamped. It starts at that day's close; the first trades fill the next morning. It is shown live in the project's dashboard (<code>streamlit run volselect_app.py</code>).</p>
+<p>Since the close of 23 Nov 2026 the same pipeline runs every trading day at 18:00 IST on fresh prices: VolSelect and equal-weight NIFTY 50, Rs 10 lakh each, appended to an append-only ledger (<code>live/ledger.csv</code>) and committed to git, so every day is timestamped. It starts at that day's close; the first trades fill the next morning. It is shown live at <a href="https://volselect.streamlit.app">https://volselect.streamlit.app</a> (or locally with <code>streamlit run volselect_app.py</code>).</p>
 </div>
 
 <div class="section"><h2>6. Limitations</h2>

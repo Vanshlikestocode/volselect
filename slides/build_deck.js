@@ -59,6 +59,8 @@ const SLIDES = [
     T(s, "A volatility-aware NIFTY 50 portfolio: forecast when volatility will rise, hold the stocks most likely to hold up, and test it on data the model never saw",
       { x: 0.7, y: 4.0, w: 10.8, h: 1.2, fontSize: 20, italic: true, color: HEX.white, fontFace: "Cambria" });
     T(s, "Vansh Dave · Karthik Agarwal · Guide: Sailesh Kulkarni", { x: 0.7, y: 6.4, w: 8, h: 0.4, fontSize: 14, color: HEX.white });
+    T(s, [{ text: "Live site: ", options: { color: HEX.ice } }, { text: "volselect.streamlit.app", options: { color: HEX.white, bold: true, underline: { style: "sng" }, hyperlink: { url: "https://volselect.streamlit.app", tooltip: "Open the live VolSelect site" } } }],
+      { x: 0.7, y: 5.75, w: 8, h: 0.45, fontSize: 16 });
     T(s, "Academic research prototype · not investment advice", { x: 8.3, y: 6.4, w: 4.4, h: 0.4, fontSize: 12, color: HEX.ice, align: "right" });
     s.addNotes("Introduce the team and the one-line idea: when market volatility is expected to rise, switch which NIFTY 50 stocks we hold, instead of going to cash. Everything shown can be reproduced with python verify.py.");
   },
@@ -248,7 +250,9 @@ const SLIDES = [
     pts.forEach(([h, b], i) => { const x = 0.7 + i * 4.1; s.addShape("roundRect", { x, y: 2.9, w: 3.85, h: 2.0, fill: { color: "1C3342" }, line: { color: "1C3342" }, rectRadius: 0.08, objectName: `take-${i + 1}` });
       T(s, h, { x: x + 0.3, y: 3.1, w: 3.3, h: 0.45, fontSize: 18, bold: true, color: HEX.ice }); T(s, b, { x: x + 0.3, y: 3.6, w: 3.3, h: 1.2, fontSize: 14, color: HEX.white }); });
     T(s, "LIVE DEMO", { x: 0.7, y: 5.35, w: 4, h: 0.4, fontSize: 14, color: HEX.ice, charSpacing: 2 });
-    T(s, [{ text: "streamlit run volselect_app.py", options: { fontFace: "Courier New", color: HEX.white, breakLine: true } },
+    T(s, [{ text: "volselect.streamlit.app", options: { color: HEX.white, bold: true, underline: { style: "sng" }, hyperlink: { url: "https://volselect.streamlit.app", tooltip: "Open the live VolSelect site" } } },
+          { text: "   or locally:  ", options: { color: HEX.ice } },
+          { text: "streamlit run volselect_app.py", options: { fontFace: "Courier New", color: HEX.white, breakLine: true } },
           { text: "Today's regime and ranking · the live paper-trading record · every result re-run with python verify.py", options: { color: HEX.ice } }],
       { x: 0.7, y: 5.8, w: 11.9, h: 1.0, fontSize: 15 });
     s.addNotes("Demo order (2 minutes): 1) Overview: today's regime and the honest evidence. 2) Live market: the regime, the ranking, the target portfolio for the next rebalance and the forward record. 3) Research: value chart and the 2022+ table. 4) In a terminal: python verify.py to show every number reproduces.");
