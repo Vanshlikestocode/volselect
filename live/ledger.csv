@@ -1,0 +1,3 @@
+date,portfolio,value_rs,day_return_pct,invested_pct,rebalanced_at_open,regime_used,holdings,nifty_close,india_vix
+2026-11-23,Equal-weight NIFTY 50,1000000.0,0.0,0.0,,,,25349.65,17.7
+2026-11-23,VolSelect (regime switch),1000000.0,0.0,0.0,,,,25349.65,17.7

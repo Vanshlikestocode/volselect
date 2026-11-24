@@ -1,5 +1,5 @@
 {
- "after_close_of": "2026-11-20",
+ "after_close_of": "2026-11-23",
  "ranked_by": "resilience model (rising/high volatility)",
  "regime": "rising",
  "executes": "at the next session's open (first session of the new week)",
@@ -7,61 +7,61 @@
   {
    "stock": "CIPLA",
    "now_pct": 0.0,
-   "target_pct": 16.05,
+   "target_pct": 15.63,
    "action": "BUY"
   },
   {
    "stock": "TECHM",
    "now_pct": 0.0,
-   "target_pct": 12.59,
+   "target_pct": 12.43,
    "action": "BUY"
   },
   {
    "stock": "SUNPHARMA",
    "now_pct": 0.0,
-   "target_pct": 12.53,
+   "target_pct": 12.42,
    "action": "BUY"
   },
   {
    "stock": "HCLTECH",
    "now_pct": 0.0,
-   "target_pct": 11.41,
+   "target_pct": 11.21,
    "action": "BUY"
   },
   {
    "stock": "NTPC",
    "now_pct": 0.0,
-   "target_pct": 9.87,
-   "action": "BUY"
-  },
-  {
-   "stock": "HINDALCO",
-   "now_pct": 0.0,
-   "target_pct": 8.43,
+   "target_pct": 9.99,
    "action": "BUY"
   },
   {
    "stock": "NESTLEIND",
    "now_pct": 0.0,
-   "target_pct": 8.1,
+   "target_pct": 8.32,
+   "action": "BUY"
+  },
+  {
+   "stock": "HINDALCO",
+   "now_pct": 0.0,
+   "target_pct": 8.14,
    "action": "BUY"
   },
   {
    "stock": "INFY",
    "now_pct": 0.0,
-   "target_pct": 7.4,
+   "target_pct": 7.63,
    "action": "BUY"
   },
   {
    "stock": "MAXHEALTH",
    "now_pct": 0.0,
-   "target_pct": 7.2,
+   "target_pct": 7.57,
    "action": "BUY"
   },
   {
    "stock": "BSE",
    "now_pct": 0.0,
-   "target_pct": 6.41,
+   "target_pct": 6.67,
    "action": "BUY"
   }
  ]
