@@ -1,8 +1,8 @@
 {
- "date": "2026-11-23",
- "p_high": 0.4071,
+ "date": "2026-11-25",
+ "p_high": 0.4547,
  "regime": "rising",
  "ranked_by": "resilience model (rising/high volatility)",
- "india_vix": 17.7,
- "nifty_realised_vol_20d": 15.5
+ "india_vix": 17.67,
+ "nifty_realised_vol_20d": 16.14
 }

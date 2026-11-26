@@ -1,68 +1,80 @@
 {
- "after_close_of": "2026-11-23",
+ "after_close_of": "2026-11-25",
  "ranked_by": "resilience model (rising/high volatility)",
  "regime": "rising",
- "executes": "at the next session's open (first session of the new week)",
+ "executes": "at the open of the first session of next week, if the ranking is still the same then",
  "orders": [
   {
-   "stock": "CIPLA",
-   "now_pct": 0.0,
-   "target_pct": 15.32,
-   "action": "BUY"
-  },
-  {
    "stock": "TECHM",
-   "now_pct": 0.0,
-   "target_pct": 12.18,
-   "action": "BUY"
+   "now_pct": 12.18,
+   "target_pct": 13.23,
+   "action": "HOLD"
   },
   {
    "stock": "SUNPHARMA",
-   "now_pct": 0.0,
-   "target_pct": 12.17,
-   "action": "BUY"
+   "now_pct": 12.17,
+   "target_pct": 13.0,
+   "action": "HOLD"
   },
   {
    "stock": "HCLTECH",
-   "now_pct": 0.0,
-   "target_pct": 10.98,
-   "action": "BUY"
+   "now_pct": 10.98,
+   "target_pct": 12.01,
+   "action": "HOLD"
   },
   {
    "stock": "NTPC",
-   "now_pct": 0.0,
-   "target_pct": 9.79,
-   "action": "BUY"
+   "now_pct": 9.79,
+   "target_pct": 10.99,
+   "action": "HOLD"
   },
   {
-   "stock": "TCS",
+   "stock": "POWERGRID",
    "now_pct": 0.0,
-   "target_pct": 9.43,
-   "action": "BUY"
-  },
-  {
-   "stock": "NESTLEIND",
-   "now_pct": 0.0,
-   "target_pct": 8.15,
+   "target_pct": 9.38,
    "action": "BUY"
   },
   {
    "stock": "HINDALCO",
-   "now_pct": 0.0,
-   "target_pct": 7.98,
-   "action": "BUY"
+   "now_pct": 7.98,
+   "target_pct": 9.07,
+   "action": "HOLD"
+  },
+  {
+   "stock": "NESTLEIND",
+   "now_pct": 8.15,
+   "target_pct": 8.36,
+   "action": "HOLD"
   },
   {
    "stock": "INFY",
+   "now_pct": 7.47,
+   "target_pct": 8.1,
+   "action": "HOLD"
+  },
+  {
+   "stock": "MAXHEALTH",
    "now_pct": 0.0,
-   "target_pct": 7.47,
+   "target_pct": 8.0,
    "action": "BUY"
   },
   {
    "stock": "BSE",
-   "now_pct": 0.0,
-   "target_pct": 6.54,
-   "action": "BUY"
+   "now_pct": 6.54,
+   "target_pct": 7.86,
+   "action": "HOLD"
+  },
+  {
+   "stock": "CIPLA",
+   "now_pct": 15.32,
+   "target_pct": 0.0,
+   "action": "SELL"
+  },
+  {
+   "stock": "TCS",
+   "now_pct": 9.43,
+   "target_pct": 0.0,
+   "action": "SELL"
   }
  ]
 }

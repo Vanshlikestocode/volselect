@@ -1,3 +1,5 @@
 date,portfolio,value_rs,day_return_pct,invested_pct,rebalanced_at_open,regime_used,holdings,nifty_close,india_vix
 2026-11-23,Equal-weight NIFTY 50,1000000.0,0.0,0.0,,,,25349.65,17.7
 2026-11-23,VolSelect (regime switch),1000000.0,0.0,0.0,,,,25349.65,17.7
+2026-11-25,Equal-weight NIFTY 50,1005008.24,0.5008,99.85,yes,equal_weight,all 50 stocks equally,25819.25,17.67
+2026-11-25,VolSelect (regime switch),1004496.01,0.4496,99.85,yes,stress,CIPLA 15.3%; TECHM 12.2%; SUNPHARMA 12.2%; HCLTECH 11.0%; NTPC 9.8%; TCS 9.4%; NESTLEIND 8.2%; HINDALCO 8.0%; INFY 7.5%; BSE 6.5%,25819.25,17.67
