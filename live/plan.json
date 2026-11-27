@@ -1,78 +1,90 @@
 {
- "after_close_of": "2026-11-25",
+ "after_close_of": "2026-11-26",
  "ranked_by": "resilience model (rising/high volatility)",
  "regime": "rising",
  "executes": "at the open of the first session of next week, if the ranking is still the same then",
  "orders": [
   {
-   "stock": "TECHM",
-   "now_pct": 12.18,
-   "target_pct": 13.23,
+   "stock": "CIPLA",
+   "now_pct": 15.63,
+   "target_pct": 15.65,
    "action": "HOLD"
   },
   {
    "stock": "SUNPHARMA",
-   "now_pct": 12.17,
-   "target_pct": 13.0,
-   "action": "HOLD"
-  },
-  {
-   "stock": "HCLTECH",
-   "now_pct": 10.98,
-   "target_pct": 12.01,
+   "now_pct": 12.42,
+   "target_pct": 13.14,
    "action": "HOLD"
   },
   {
    "stock": "NTPC",
-   "now_pct": 9.79,
-   "target_pct": 10.99,
+   "now_pct": 9.99,
+   "target_pct": 11.11,
    "action": "HOLD"
   },
   {
    "stock": "POWERGRID",
    "now_pct": 0.0,
-   "target_pct": 9.38,
+   "target_pct": 9.7,
+   "action": "BUY"
+  },
+  {
+   "stock": "ASIANPAINT",
+   "now_pct": 0.0,
+   "target_pct": 8.98,
+   "action": "BUY"
+  },
+  {
+   "stock": "TATACONSUM",
+   "now_pct": 0.0,
+   "target_pct": 8.73,
    "action": "BUY"
   },
   {
    "stock": "HINDALCO",
-   "now_pct": 7.98,
-   "target_pct": 9.07,
+   "now_pct": 8.14,
+   "target_pct": 8.62,
+   "action": "HOLD"
+  },
+  {
+   "stock": "APOLLOHOSP",
+   "now_pct": 0.0,
+   "target_pct": 8.21,
+   "action": "BUY"
+  },
+  {
+   "stock": "MAXHEALTH",
+   "now_pct": 7.57,
+   "target_pct": 8.07,
    "action": "HOLD"
   },
   {
    "stock": "NESTLEIND",
-   "now_pct": 8.15,
-   "target_pct": 8.36,
+   "now_pct": 8.32,
+   "target_pct": 7.78,
    "action": "HOLD"
   },
   {
-   "stock": "INFY",
-   "now_pct": 7.47,
-   "target_pct": 8.1,
-   "action": "HOLD"
-  },
-  {
-   "stock": "MAXHEALTH",
-   "now_pct": 0.0,
-   "target_pct": 8.0,
-   "action": "BUY"
-  },
-  {
-   "stock": "BSE",
-   "now_pct": 6.54,
-   "target_pct": 7.86,
-   "action": "HOLD"
-  },
-  {
-   "stock": "CIPLA",
-   "now_pct": 15.32,
+   "stock": "HCLTECH",
+   "now_pct": 11.21,
    "target_pct": 0.0,
    "action": "SELL"
   },
   {
-   "stock": "TCS",
-   "now_pct": 9.43,
+   "stock": "TECHM",
+   "now_pct": 12.43,
+   "target_pct": 0.0,
+   "action": "SELL"
+  },
+  {
+   "stock": "BSE",
+   "now_pct": 6.67,
+   "target_pct": 0.0,
+   "action": "SELL"
+  },
+  {
+   "stock": "INFY",
+   "now_pct": 7.63,
    "target_pct": 0.0,
    "action": "SELL"
   }
